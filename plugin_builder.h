@@ -5,11 +5,6 @@
 #include <map>
 #include <iostream>
 
-  template<typename Base, typename Derived>
-  struct PluginFactory {
-    static Base* build() { return new Derived; }
-  };
-
 namespace {   // Force internal linkage
   template<typename Base, typename Derived, typename Key = std::string>
   struct reg_placeholder {
@@ -18,6 +13,12 @@ namespace {   // Force internal linkage
   template<typename Base, typename Derived, typename Key>
   bool reg_placeholder<Base, Derived, Key>::reg = false;
 }
+
+
+template<typename Base, typename Derived>
+struct PluginFactory {
+  static Base* build() { return new Derived; }
+};
 
 template<typename Base, typename Key = std::string>
 class PluginBuilder {

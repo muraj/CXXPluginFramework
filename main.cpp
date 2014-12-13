@@ -1,8 +1,9 @@
 #include <iostream>
 #include <assert.h>
-#include <dlfcn.h>
 
+#include "plugin_loader.h"
 #include "plugin_builder.h"
+
 #include "animal.h"
 
 template<typename Base, typename Key>
@@ -13,11 +14,11 @@ typename PluginBuilder<Base, Key>::FactoryMap PluginBuilder<Base, Key>::_map = P
 
 int main() {
 
-  dlopen(0, RTLD_NOW|RTLD_GLOBAL);
-  void* dogso = dlopen("./libdog.so", RTLD_NOW|RTLD_GLOBAL);
-  if(!dogso) std::cout << "Failed to load dog.so: " << dlerror() << std::endl;
-  void* catso = dlopen("./libcat.so", RTLD_NOW|RTLD_GLOBAL);
-  if(!catso) std::cout << "Failed to load cat.so: " << dlerror() << std::endl;
+  PLUGIN_INIT();
+  PluginHandle dogso = PLUGIN_LOAD("./libdog.so");
+  if(!dogso) std::cout << "Failed to load dog.so: " << PLUGIN_ERR() << std::endl;
+  PluginHandle catso = PLUGIN_LOAD("./libcat.so");
+  if(!catso) std::cout << "Failed to load cat.so: " << PLUGIN_ERR() << std::endl;
 
   std::cout << "Registered kinds:" << std::endl;
   for(PluginBuilder<Animal>::FactoryMap::const_iterator it = PluginBuilder<Animal>::factoryMap().begin(); it != PluginBuilder<Animal>::factoryMap().end(); ++it)
@@ -33,8 +34,8 @@ int main() {
   else std::cout << "Cat missing!" << std::endl;
   delete b;
 
-  if(dogso) dlclose(dogso);
-  if(catso) dlclose(catso);
+  if(dogso) PLUGIN_CLOSE(dogso);
+  if(catso) PLUGIN_CLOSE(catso);
 
   return 0;
 }
