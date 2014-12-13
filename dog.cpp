@@ -10,5 +10,5 @@ void Dog::speak() {
 }
 
 namespace {
-  template<> DOG_NO_EXPORT bool reg_placeholder<Animal, Dog>::reg = PluginBuilder<Animal>::load<Dog>("Dog");
+  template<> bool reg_placeholder<Animal, Dog>::reg = PluginBuilder<Animal>::load<Dog>("Dog");
 }

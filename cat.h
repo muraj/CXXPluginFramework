@@ -2,9 +2,8 @@
 #define __CAT_H__
 
 #include "animal.h"
-#include "cat_export.h"
 
-class CAT_EXPORT Cat : public Animal {
+class Cat : public Animal {
 public:
   Cat();
   virtual ~Cat();

@@ -2,9 +2,8 @@
 #define __DOG_H__
 
 #include "animal.h"
-#include "dog_export.h"
 
-class DOG_NO_EXPORT Dog : public Animal {
+class Dog : public Animal {
 public:
   Dog();
   virtual ~Dog();

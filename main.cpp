@@ -5,6 +5,12 @@
 #include "plugin_builder.h"
 #include "animal.h"
 
+template<typename Base, typename Key>
+typename PluginBuilder<Base, Key>::FactoryMap PluginBuilder<Base, Key>::_map = PluginBuilder<Base, Key>::FactoryMap();
+
+//template<>
+//typename PluginBuilder<Animal>::FactoryMap PluginBuilder<Animal>::_map;
+
 int main() {
 
   dlopen(0, RTLD_NOW|RTLD_GLOBAL);
@@ -13,8 +19,9 @@ int main() {
   void* catso = dlopen("./libcat.so", RTLD_NOW|RTLD_GLOBAL);
   if(!catso) std::cout << "Failed to load cat.so: " << dlerror() << std::endl;
 
+  std::cout << "Registered kinds:" << std::endl;
   for(PluginBuilder<Animal>::FactoryMap::const_iterator it = PluginBuilder<Animal>::factoryMap().begin(); it != PluginBuilder<Animal>::factoryMap().end(); ++it)
-    std::cout << it->first << std::endl;
+    std::cout << '\t' << it->first << std::endl;
 
   Animal* a = PluginBuilder<Animal>::build("Dog");
   if(a) a->speak();

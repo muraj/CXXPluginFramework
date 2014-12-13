@@ -10,5 +10,5 @@ void Cat::speak() {
 }
 
 namespace {
-  template<> CAT_EXPORT bool reg_placeholder<Animal, Cat>::reg = PluginBuilder<Animal>::load<Cat>("Cat");
+  template<> bool reg_placeholder<Animal, Cat>::reg = PluginBuilder<Animal>::load<Cat>("Cat");
 }

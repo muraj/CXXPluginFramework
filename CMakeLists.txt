@@ -11,16 +11,14 @@ set(pluginTest_SRCS
   main.cpp)
 
 add_executable(pluginTest ${pluginTest_SRCS})
-target_link_libraries(pluginTest -ldl)
+target_link_libraries(pluginTest ${CMAKE_DL_LIBS})
 
 set(dogPlugin_SRCS
   dog.cpp)
 add_library(dog MODULE ${dogPlugin_SRCS})
-generate_export_header(dog)
-#set_target_properties(dog PROPERTIES COMPILE_FLAGS ${COMPILE_VISIBILITY_FLAGS})
+set_target_properties(dog PROPERTIES COMPILE_FLAGS ${COMPILE_VISIBILITY_FLAGS})
 
 set(catPlugin_SRCS
   cat.cpp)
 add_library(cat MODULE ${catPlugin_SRCS})
-generate_export_header(cat)
 set_target_properties(cat PROPERTIES COMPILE_FLAGS ${COMPILE_VISIBILITY_FLAGS})
