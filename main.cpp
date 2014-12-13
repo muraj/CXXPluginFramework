@@ -11,9 +11,11 @@ INIT_PLUGIN_BUILDER
 int main() {
 
   PLUGIN_INIT();
-  PluginHandle dogso = PLUGIN_LOAD("./libdog.so");
+
+  PluginHandle dogso = PLUGIN_LOAD("./dog.so");
   if(!dogso) std::cout << "Failed to load dog.so: " << PLUGIN_ERR() << std::endl;
-  PluginHandle catso = PLUGIN_LOAD("./libcat.so");
+
+  PluginHandle catso = PLUGIN_LOAD("./cat.so");
   if(!catso) std::cout << "Failed to load cat.so: " << PLUGIN_ERR() << std::endl;
 
   std::cout << "Registered kinds:" << std::endl;

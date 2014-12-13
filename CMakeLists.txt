@@ -16,9 +16,11 @@ target_link_libraries(pluginTest ${CMAKE_DL_LIBS})
 set(dogPlugin_SRCS
   dog.cpp)
 add_library(dog MODULE ${dogPlugin_SRCS})
+set_target_properties(dog PROPERTIES PREFIX "")
 set_target_properties(dog PROPERTIES COMPILE_FLAGS ${COMPILE_VISIBILITY_FLAGS})
 
 set(catPlugin_SRCS
   cat.cpp)
 add_library(cat MODULE ${catPlugin_SRCS})
+set_target_properties(cat PROPERTIES PREFIX "")
 set_target_properties(cat PROPERTIES COMPILE_FLAGS ${COMPILE_VISIBILITY_FLAGS})
