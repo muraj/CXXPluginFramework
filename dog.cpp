@@ -9,6 +9,4 @@ void Dog::speak() {
   std::cout << "bark!" << std::endl;
 }
 
-namespace {
-  template<> bool reg_placeholder<Animal, Dog>::reg = PluginBuilder<Animal>::load<Dog>("Dog");
-}
+REGISTER_PLUGIN(Animal, Dog)

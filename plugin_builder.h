@@ -48,4 +48,13 @@ public:
   }
 };
 
+#define INIT_PLUGIN_BUILDER \
+  template<typename Base, typename Key> \
+  typename PluginBuilder<Base, Key>::FactoryMap PluginBuilder<Base, Key>::_map = PluginBuilder<Base, Key>::FactoryMap();
+
+#define REGISTER_PLUGIN(Base, Derived) \
+  namespace {                          \
+    template<> bool reg_placeholder<Base, Derived>::reg = PluginBuilder<Base>::load<Derived>(#Derived); \
+  }
+
 #endif // __PLUGINBUILDER_H__

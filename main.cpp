@@ -6,11 +6,7 @@
 
 #include "animal.h"
 
-template<typename Base, typename Key>
-typename PluginBuilder<Base, Key>::FactoryMap PluginBuilder<Base, Key>::_map = PluginBuilder<Base, Key>::FactoryMap();
-
-//template<>
-//typename PluginBuilder<Animal>::FactoryMap PluginBuilder<Animal>::_map;
+INIT_PLUGIN_BUILDER
 
 int main() {
 
@@ -21,15 +17,16 @@ int main() {
   if(!catso) std::cout << "Failed to load cat.so: " << PLUGIN_ERR() << std::endl;
 
   std::cout << "Registered kinds:" << std::endl;
-  for(PluginBuilder<Animal>::FactoryMap::const_iterator it = PluginBuilder<Animal>::factoryMap().begin(); it != PluginBuilder<Animal>::factoryMap().end(); ++it)
-    std::cout << '\t' << it->first << std::endl;
+  std::vector<std::string> kinds = Animal::kinds();
+  for(size_t i=0;i<kinds.size();i++)
+    std::cout << '\t' << kinds[i] << std::endl;
 
-  Animal* a = PluginBuilder<Animal>::build("Dog");
+  Animal* a = Animal::create("Dog");
   if(a) a->speak();
   else std::cout << "Dog missing!" << std::endl;
   delete a;
 
-  Animal* b = PluginBuilder<Animal>::build("Cat");
+  Animal* b = Animal::create("Cat");
   if(b) b->speak();
   else std::cout << "Cat missing!" << std::endl;
   delete b;
