@@ -13,7 +13,11 @@
 #else // LINUX || OSX
   #include <dlfcn.h>
   typedef void* PluginHandle;
-  #define PLUGIN_EXT ".so"
+  #if defined(__APPLE__)
+    #define PLUGIN_EXT ".dylib"
+  #else
+    #define PLUGIN_EXT ".so"
+  #endif  // __APPLE__
   #define PLUGIN_LOAD(fn)       dlopen(fn, RTLD_NOW|RTLD_GLOBAL)
   #define PLUGIN_LOOKUP(hdl, n) dlsym(hdl, n)
   #define PLUGIN_INIT()         PLUGIN_LOAD(0)
