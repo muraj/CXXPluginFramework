@@ -1,3 +1,4 @@
+#  Copyright (c) 2014 Cory Perry
 #  This file is part of CXXPluginFramework.
 #
 #  CXXPluginFramework is free software: you can redistribute it and/or modify
